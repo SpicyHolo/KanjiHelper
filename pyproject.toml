@@ -1,0 +1,19 @@
+[project]
+name = "kanji-helper"
+version = "0.1.0"
+description = "Your project description"
+readme = "README.md"
+requires-python = ">=3.12"
+authors = [{name = "Konrad Makowski"}]
+license = {text = "the license choosen from the project"}
+classifiers = [
+    "License :: OSI Approved :: {{ the license name }} "
+]
+dependencies = ["rich", "prompt-toolkit"]
+
+[build-system]
+requires = ["setuptools"]
+build-backend = "setuptools.build_meta"
+
+[project.urls]
+Homepage = "your github repo page"
