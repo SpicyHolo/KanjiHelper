@@ -7,7 +7,7 @@ from textwrap import dedent
 from utils.constants import ACCENT_COLOR
 
 class Header:
-    """Display header with clock."""
+    """Display header with splash art."""
     def __rich__(self) -> Panel:
         splash = """\
             ┓┏┓    ••  ┏┓   ┓    ┏┓ ┏┓

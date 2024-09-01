@@ -15,10 +15,13 @@ from prompt_toolkit import PromptSession
 from ui.header import Header
 from ui.gallery import Gallery
 from ui.menu import Menu
+from ui.importer import Importer
 from ui.kanji_sets import KanjiSets
-from ui.inputs import keyboardInput
-from utils.constants import ACCENT_COLOR
+from ui.footer import Footer
 
+from ui.inputs import keyboardInput
+
+from utils.constants import ACCENT_COLOR
 
 def make_layout() -> Layout:
     """Define and return the application layout."""
@@ -89,11 +92,13 @@ def main() -> None:
     menu = Menu(console, layout)
     gallery = Gallery(console, layout, user_data)
     kanji_sets = KanjiSets(console, layout, user_data, app_data)
+    kanji_importer = Importer(console, layout, user_data)
+    footer = Footer(user_data)
 
     layout["menu"].update(menu)
     layout["body"].update(gallery)
     layout["header"].update(Header())
-    layout["footer"].update(Panel(Text("Hello there", style="white on black"), box=box.MINIMAL))
+    layout["footer"].update(footer)
 
     # Manage keyboard input
     keyboard_input = keyboardInput(menu, gallery, kanji_sets)
@@ -110,11 +115,22 @@ def main() -> None:
         # Start the live display
         with Live(layout, refresh_per_second=10, screen=True):
             while not stop_event.is_set() and not keyboard_input.get_exit_app():
+                # add default footer
+                footer.clear_footer()
+                footer.add_default_footer()
+
                 selected_menu = menu.get_selected_option()
                 if selected_menu == "Kanji Gallery":
                     layout["body"].update(gallery)
+                elif selected_menu == "Kanji Importer":
+                    layout["body"].update(kanji_importer)
                 elif selected_menu == "Kanji Sets":
+
                     layout["body"].update(kanji_sets)
+
+
+
+                layout["footer"].update(footer)
 
                 sleep(0.1)
     except KeyboardInterrupt:

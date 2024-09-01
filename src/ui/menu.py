@@ -10,7 +10,7 @@ class Menu:
     def __init__(self, console, layout):
         self.selected_index = 0
         self.hover_index = 0
-        self.options = ["Kanji Gallery", "Import Kanji", "Kanji Sets"]
+        self.options = ["Kanji Gallery", "Kanji Importer", "Kanji Sets"]
         self.max_index = len(self.options)
 
         self.console = console
